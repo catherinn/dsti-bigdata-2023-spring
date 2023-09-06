@@ -45,6 +45,8 @@ duration: 3 hours
     ```
 
   - Optimized file format (**ORC**, **Parquet**, Avro)
+      - ORC is HIVE specific. Both ORC and Parquet insert columns into the memory first. Avro is row-based.
+      - ORC and Parquet are for OLAP.
 
 - Can also read data from other systems : HBase, Kafka, PostgreSQL/MySQL, etc.
 
@@ -105,6 +107,7 @@ duration: 3 hours
   - We ingest the CSV data from the first table to this one
 
 ## Hive partitions
+- we partition the table for performance. We do this because only the partition is in the memory. so it's much more efficient to load only this data than the whole dataset
 
 - Tables can (**should**) be organized in partitions
 
