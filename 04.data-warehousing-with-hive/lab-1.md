@@ -42,6 +42,28 @@ Using the official [Hive Data Definition Langage](https://cwiki.apache.org/confl
    LOCATION -- COMPLETE HERE
    TBLPROPERTIES ('skip.header.line.count'='1');
    ```
+```
+SET hivevar:clusterUsername=k.lechner-dsti;
+SET hivevar:hiveUsername=k_lechner_dsti;
+
+CREATE EXTERNAL TABLE dsti_spoc.${hiveUsername}_nyc_drivers_ext1 (
+driver_id INT,
+name STRING,
+ssn INT,
+location STRING,
+certified STRING,
+wage_plan STRING)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+STORED AS TEXTFILE
+LOCATION '/education/dsti_spoc/k.lechner-dsti/lab4/nyc_drivers'
+TBLPROPERTIES ('skip.header.line.count'='1');
+```
+to drop a table
+```DROP TABLE <table_name>```
+
+to see tables 
+```SHOW TABLES dsti_spoc```
+
 
 5. Check that the table is correctly created by selecting all the data in it. **If you see only `NULL` values, your schema is not correct.**
 
@@ -59,7 +81,22 @@ STORED AS ORC;
    2. The column `name` divided into `first_name` and `last_name`
    3. The column `location` renamed as `address` (because `LOCATION` is a Hive keyword)
    4. The column `certified` as a `BOOLEAN`
-2. Check that your table was created using the HDFS CLI at `/warehouse/tablespace/managed/hive/dsti_2023_fallbda_1.db/${USER}_nyc_drivers` (should be empty)
+  
+   ```
+   SET hivevar:hiveUsername=k_lechner_dsti;
+
+   CREATE EXTERNAL TABLE dsti_spoc.${hiveUsername}_nyc_drivers(
+   driver_id INT,
+   first_name STRING,
+   last_name STRING,
+   ssn INT,
+   address STRING,
+   certified BOOLEAN,
+   wage_plan STRING)
+   ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+   STORED AS ORC;
+   ```
+3. Check that your table was created using the HDFS CLI at `/warehouse/tablespace/managed/hive/dsti_2023_fallbda_1.db/${USER}_nyc_drivers` (should be empty)
 
 ### Load data from the CSV table to the ORC table
 
