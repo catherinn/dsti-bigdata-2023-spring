@@ -45,6 +45,8 @@ When you write the code and submit it, Spark:
 3. **Driver** sends **tasks** to **executors**
 4. **Executors** send **status** to **driver**
 
+   the execution plan is per job. the number of the executor is per run
+
 ![Spark internals](./image/spark_internals.png)
 
 ## Data structures
@@ -56,13 +58,16 @@ When you write the code and submit it, Spark:
 2 types of **operations**:
 
 - **Transformations**:
-  - transform a Spark DataFrame/RDD into a new DataFrame/RDD
+  - transform a Spark DataFrame/RDD into a new DataFrame/RDD  
   - examples: `orderBy()`, `groupBy()`, `filter()`, `select()`, `join()`
 - **Actions**:  
   - get the result
   - examples: `show()`, `take(10)`, `count()`, `collect()`, `save()`
 
 **Lazy evaluation**: transformations triggered when action is called.
+Spark will register the transformation and check that the code is correct.
+Only when you need the result, will it actually execute it.
+Think optimization with count and filter. It is written in the spark engine. You want to optimize for mapreduce, because there it matters for the shuffling.
 
 ### API
 
@@ -70,13 +75,14 @@ Chain transformations and use the result with an action :
 
 ```Python
 rdd = (
-    sc.wholeTextFiles('hdfs://text/file/path')
-    .map(lambda x: x.split(','))      #transformation
-    .flatMap(...)                     #transformation
-    .groupByKey(...)                  #transformation
+    sc.wholeTextFiles('hdfs://text/file/path')  # returns an RDD. this is a pointer. # this is RDD1
+    .map(lambda x: x.split(','))      #transformation # this is RDD 2
+    .flatMap(...)                     #transformation # this is RDD 3
+    .groupByKey(...)                  #transformation # this is RDD 4
 )
+#the underlying partitioning of spark will map the underlying transitioning of HDFS, because we don't shuffle when we dont have to
 
-rdd.take(10)      # action
+rdd.take(10)      # action. only at this point is it taking an action
 ```
 
 When an action is run:
@@ -102,6 +108,7 @@ When an action is run:
   - **1 partition** = **1 block** = 128 MB in HDFS
   - **1 task** runs on **1 partition**
   - Default = 1 partition per CPU core
+- a pointer to somehting that may not yet exist, but is immutable at the same time
 
 ### Narrow and wide transformations
 
