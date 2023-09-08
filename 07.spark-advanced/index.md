@@ -238,4 +238,9 @@ Spark application is an application that embeds the spark driver. and a driver w
 - 3 partitions / CPU
 - Start big, then reduce memory
 - Lot of testing, monitoring, benchmarking (optimize properties one by one)
+- 
+
+
+- Jar is a job
+- scala-submit will allow us to submit a job 
 
