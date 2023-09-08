@@ -8,12 +8,13 @@ Duration: 3 hours
 ## RDDs: Pros and Cons
 
 - Pros
-    - Developers: **low level control** of execution
+    - Developers: **low level control** of execution -> you can do whatever you want
 - Cons
   - For user
       - **complicated** to express complex ideas
       - **difficult** to understand the code
   - For Spark: lambda functions are **opaque** (no optimization)
+  - but it is difficult to do
 
 ## DataFrames
 
@@ -38,6 +39,14 @@ Duration: 3 hours
 
 ## Working with DataFrames
 
+<img width="1094" alt="Screenshot 2023-09-08 at 11 34 44" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/cdd81510-56d5-4e34-ba66-752e576089f4">
+
+Optimization:
+rule-based: logical plan
+cost-base: physical plan
+<img width="1178" alt="Screenshot 2023-09-08 at 12 30 32" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/10e2d532-1ae7-4ef5-9004-dbedefc7da73">
+These all 3 are the same. the only difference are the immutable pointers that we place within. but they onlyget executed with the show, same as in the 1. place
+agg enables me to put multiple aggregation functions within 1
 Querying DataFrames:
 - By **chaining** functions
 
@@ -67,6 +76,9 @@ spark.sql("SELECT * FROM table")
 ## Spark Ecosystem
 
 **ADD IMAGE**
+
+
+Koalas DF is a DataFrame API that provides a pandas-like interface to Apache Spark. It allows you to work with Spark DataFrames using the same syntax and semantics as pandas DataFrames. 
 
 ## Machine Learning With Spark: packages
 
@@ -197,6 +209,7 @@ And also:
 - GraphX: distributed graph processing
 
 ## Spark application components
+Spark application is an application that embeds the spark driver. and a driver will communicate with the executors.
 
 - Java and Scala: "Uber" **jar** file
   - Spark code
