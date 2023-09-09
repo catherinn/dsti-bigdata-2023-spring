@@ -55,6 +55,7 @@ duration: 3 hours
 ## Solutions and tools - BI & Monitoring
 
 - **Business Intelligence**: Qlikview, Tableau, Power BI, MicroStrategy
+  - apache superset! cheap. start with a docker container
 - **Monitoring**: Datadog, Splunk, Prometheus, Grafana
 
 ## Solutions and tools - ML Platforms
@@ -64,5 +65,7 @@ duration: 3 hours
 - MLFlow (Databricks)
 
 ## What’s next in Big Data? Data mesh
+
+Hadoop was first implemented by Yahoo (DOug Cutting), after google published a scientific paper on how they do distributed systems. So google invented it and yahoo implemented it.
 
 [How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh](https://martinfowler.com/articles/data-monolith-to-mesh.html)
