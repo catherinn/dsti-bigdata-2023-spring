@@ -30,3 +30,7 @@ To stream the NY datasets:
   hdfs dfs -rm -r -f "/education/ece/big-data/2020/fall/bda/gr1/$USER/spark-streaming/checkpoint/*"
   python3 stream_taxi_data_socket.py edge-1.au.adaltas.cloud "$PORT" fares
   ```
+Then start the processing on the fly in your spark shell. you first always select the data then process whatever you want.
+<img width="1166" alt="Screenshot 2023-09-09 at 12 45 11" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/4fe0f53e-9430-4444-939c-5d4e1f32b4c3">
+
+If we want to implement the window, we can do it - search in google spark window streaming
