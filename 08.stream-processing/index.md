@@ -9,6 +9,7 @@ duration: 3 hours
 1. **Unbounded data sets** (in opposition to finite data sets);
 2. **Unbounded data processing** (in time);
 3. **Low-latency**, approximate and/or speculative results.
+4. NOT real time!!
 
 ## Streaming tools
 
@@ -18,7 +19,8 @@ duration: 3 hours
 - Distributed **stream processing engines**:
   - Exactly-once, fault-tolerant processing
   - Aggregations, event-time windows
-
+a socket - but limited, as we don't want single point of failure
+it is fast, compared to other messaging queues
 ## Apache Kafka: Functionalities
 
 A **distributed streaming platform**. From [Kafka web site](https://kafka.apache.org/):
@@ -28,6 +30,13 @@ A **distributed streaming platform**. From [Kafka web site](https://kafka.apache
 - **Process streams of records** as they occur (new).
 
 ## Kafka: The Messaging System
+
+Note: we want an equiprobable deterministic chaotic function for the key
+theoretically , it is possible to have the same hash. but the probability is very low.
+Rainbow table: before password was stored as its hash. then you enter the password, you do calculation and then you compare with the stored has.
+pirates created dictionary of hashes and their corresponding passwords. found on the dark web. we do not use it now for cryptographic uses.
+so now we use hashing for softwares to compare files.
+We transform the text into something that has an equiprobable distribution
 
 Records are published to **topics**.
 
@@ -49,6 +58,7 @@ Records are published to **topics**.
 
 Kafka is **dumb** (no routing policy) = **producers** are responsible for
 choosing **which topic and which partition** to write to
+if you don't provide key, they will choose it for you and make sure it's fair
 
 Methods to choose: round-robin, based on key, etc.
 
@@ -75,6 +85,8 @@ For each partition:
 - Allow **scale of processing** → increase consumer instances
 - Keep **records order** → 1 consumer receives records from 1 partition
 - **Multiple independent “customers”** → 1 oﬀset per consumer
+- Notes: ordering in 1 partition is respected. but orderign in different partisions is not guaranteed, because it physically cant be.
+- NTP allow multiple nodes to synchronize their clock, at milisecond level. with a looot o messages milisecond precision is not enough
 
 ## Other use cases
 
@@ -93,6 +105,8 @@ For each partition:
 
 - Needed for aggregations
 - Processing or event time?
+  in Kafka we have event time, and we use it
+  Problem with windows when I send message right before the wondow closed, then it would get dropped. so we launch the new window with a little delay and enable the new messags that belong to the previous window to process
 
 ![Windows](./assets/img-2.png)
 
