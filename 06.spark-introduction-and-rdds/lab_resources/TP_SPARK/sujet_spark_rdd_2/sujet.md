@@ -15,11 +15,34 @@ id,author,genre,quantity
 =========
 
 2. Load csv into dataframe in Spark
+```
+echo "id,author,genre,quantity" >> lab6.2.csv
+echo "1,hunter.fields,romance,15" >> lab6.2.csv
+echo "2,leonard.lewis,thriller,81" >> lab6.2.csv
+echo "3,jason.dawson,thriller,90" >> lab6.2.csv
+echo "4,andre.grant,thriller,25" >> lab6.2.csv
+echo "5,earl.walton,romance,40" >> lab6.2.csv
+echo "6,alan.hanson,romance,24" >> lab6.2.csv
+echo "7,clyde.matthews,thriller,31" >> lab6.2.csv
+echo "8,josephine.leonard,thriller,1" >> lab6.2.csv
+echo "9,owen.boone,sci-fi,27" >> lab6.2.csv
+echo "10,max.mcBride,romance,75"  >> lab6.2.csv
+```
 
-3. Generate number of writes per genre
+3. Generate number of writers per genre
+```spark.sql("SELECT genre, count(*) FROM author GROUP BY genre")```
 
-4. Ranking authors per number of written livre:
+4. Ranking authors per number of written books:
+```spark.sql("SELECT rank() over (order by quantity desc) as rank, author, quantity FROM author ORDER BY quantity DESC")
+```
 
+```
+df("name")split("".").show()
+val windowSpec = Window.orderBy(desc("quantity"))
+df.withColumn("id",rank().over(windowSpec)).orderBy(desc("quantity"))
+``` 
+
+```
 Ex of output:
 ranking,author,genre,quantity
 1,jason.dawson,thriller,90
@@ -33,7 +56,12 @@ ranking,author,genre,quantity
 9,hunter.fields,romance,15
 10,josephine.leonard,thriller,1
 
+https://sparkbyexamples.com/spark/spark-sql-window-functions/
+
+
 5. Rename name in a "standard" way 'jason.dawson' => 'Jason Dawson'
+val resultDF = df.withColumn("author", regexp_replace($"author", "\\.", " "))
+resultDF.withColumn("author", initcap(col("author"))).show
 
 https://sparkbyexamples.com/spark/spark-sql-window-functions/
 
@@ -66,6 +94,7 @@ scala> input.show
 
 
 7. Merge cells of same id:
+```var gr = input.groupBy("id","name").agg(first("city",true),(first("age",true)))```
 
 scala> solution.show()
 +---+-----+----+--------+
