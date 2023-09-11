@@ -45,8 +45,9 @@ Node hardware specifications:
 
 ## Security
 
-3 main principles:
 
+3 main principles:
+<img width="1042" alt="Screenshot 2023-09-10 at 22 28 01" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/ba800190-eaee-4e55-955d-435b58c8c195">
 - **Identification**: identification is the ability to identify uniquely a user of a system or an application that is running in the system
 - **Authentication**: authentication is the ability to prove that a user or application is genuinely who that person or what that application claims to be
 - **Authorization**: check user’s access rights to resources
@@ -108,6 +109,7 @@ uniquemember: uid=hmiller, ou=People, dc=example,dc=com
 
 ## Authentication: Kerberos
 
+- 3 heads: client, server KDC(key distribution center), service that wants to authenticate. TO remember: he was the 3-headed dog
 - Authentication based on a **ticketing system**
 - Single Sign-On (SSO)
 - Mutual authentication (client-service)
@@ -123,6 +125,13 @@ access a service
 ![Kerberos protocol](./assets/kerberos_protocol.png)
 
 For more information, read [here](https://en.wikipedia.org/wiki/Kerberos_(protocol)#Protocol).
+1. ticket . 2. ticket because you want to access different services
+
+Example:
+We want to access the adaltas cluster
+1. Kerberos is checking and authenticating him
+2. Kerberos sends a request to Apache Ranger, and ranger checks waht are the policies associated with the users.
+3. ranger than sends ok and the user can access the resource
 
 ## Authorization: Apache Ranger
 
@@ -161,7 +170,9 @@ Apache Ranger is a framework for centralized security and access management acro
 - Performance impact
 
 ## Centralized gateway: Apache Knox
-
+proxy
+- forward proxy - from the client side
+- reverse proxy - on the side of the server
 APache Knox is a reverse proxy which acts as single entry-point for users to the Hadoop cluster.
 
 - Avoid using Kerberos to connect to web UIs and services (SPNEGO*)
@@ -173,7 +184,12 @@ APache Knox is a reverse proxy which acts as single entry-point for users to the
 ![Knox Url](./assets/knox_end-point.png)
 
 ## Governance
+<img width="1007" alt="Screenshot 2023-09-11 at 12 20 57" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/3f5b95ba-2427-4be6-a1f0-8ba614dae1b8">
 
+External IP vs Internal IP
+- every public IP is an external IP
+- a node within a cluster can be external to all the other nodes in the cluster, but not available to the outside of the cluster
+  
 - Data catalog
 - Audit logs (who accessed what data)
 - Data lineage (application: GDPR)
@@ -181,3 +197,16 @@ APache Knox is a reverse proxy which acts as single entry-point for users to the
 Apache Atlas is an open-source metadata management and governance framework that is designed to provide a unified view of data assets within an organization.
   - Allows adding tags to data, tag propagation (example taging a table)
   - Integration with Ranger to apply permissions
+ 
+Notes other:
+TDP - trunk data platform
+
+I apologize for my previous misunderstanding.
+
+Trunk Data Platform (TDP) is an open-source, free Hadoop distribution co-constructed by EDF (Électricité de France) and the DGFIP (Direction Générale des Finances Publiques), through the association TOSIT (The Open Source I Trust). TDP is built from the source code of various Apache projects.
+
+The core idea of TDP is to have a secure, robust foundation of well-known Apache projects in the Hadoop ecosystem. These projects should cover most of the Big Data use cases: distributed file systems and computing resources, as well as SQL and NoSQL abstractions for querying data.
+
+- Ambari
+Ambari is an open-source software platform that provides unified management and monitoring for Apache Hadoop and other big data ecosystems. It is a web-based platform that allows you to manage the entire lifecycle of your Hadoop cluster, from provisioning to monitoring.
+- bought bby cloudera, it is going to be discontinued
