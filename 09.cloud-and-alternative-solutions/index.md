@@ -69,3 +69,13 @@ duration: 3 hours
 Hadoop was first implemented by Yahoo (DOug Cutting), after google published a scientific paper on how they do distributed systems. So google invented it and yahoo implemented it.
 
 [How to Move Beyond a Monolithic Data Lake to a Distributed Data Mesh](https://martinfowler.com/articles/data-monolith-to-mesh.html)
+
+
+
+Databricks
+- founded by the founders of spark
+- platform for data engineering and data science
+- it's a jupyter notebook style, like zepelin
+- first? datalake house deltalake, which has both properties of the datawarehouse and data lake
+- analytical platform for DE/DS
+<img width="519" alt="Screenshot 2023-09-11 at 14 12 44" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/8f5c4ae6-3627-4e79-af42-0fc20e47ffe9">
