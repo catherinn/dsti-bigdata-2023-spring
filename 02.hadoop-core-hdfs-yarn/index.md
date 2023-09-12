@@ -79,7 +79,7 @@ The **Hadoop Distributed File System**:
 ## HDFS: Important properties
 
 - **WORM** = Write Once Read Many: no update on files
-- **Rack awareness**
+- **Rack awareness** - Rack awareness comes into play when HDFS replicates data blocks. It tries to ensure that the replicas are placed on different racks for fault tolerance.
 - NameNode stores all the metadata in RAM => **small files problem**
 
 ## HDFS: Sum up
