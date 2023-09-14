@@ -135,6 +135,8 @@ Yet Another Resource Negotiator:
 
 Application = single job or DAG of jobs
 
+<img width="438" alt="Screenshot 2023-09-14 at 22 14 44" src="https://github.com/catherinn/dsti-bigdata-2023-spring/assets/31245352/5d8d6fa4-ad6c-4d16-9cfe-13ae1168bb9e">
+
 Components (JVMs) of an application:
 
 - **ApplicationMaster**: 
