@@ -108,3 +108,21 @@ Now we want to populate our ORC table from our CSV table. Using the [Hive Data M
    - Rename `location` to `address`
 2. Execute your query
 3. Check what the data looks like in the managed table using the HDFS CLI at `/warehouse/tablespace/managed/hive/dsti_2023_fallbda_1.db/${username}_nyc_drivers`
+4. 
+
+```
+SET hivevar:hiveUsername=k_lechner_dsti;
+
+INSERT OVERWRITE TABLE dsti_spoc.${hiveUsername}_nyc_drivers
+SELECT 
+  driver_id,
+  split(name, ' ')[0] AS first_name,
+  split(name, ' ')[1] AS last_name,
+  ssn,
+  location AS address,
+  CASE WHEN certified = 'Y' THEN true ELSE false END AS certified,
+  -- Similar solution for certified
+  -- if(certified = 'Y', true, false)
+  wage_plan
+FROM dsti_spoc.${hiveUsername}_nyc_drivers_ext1;
+```
